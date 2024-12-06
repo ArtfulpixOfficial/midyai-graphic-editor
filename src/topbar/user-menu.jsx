@@ -1,8 +1,8 @@
-import React from 'react';
-import { observer } from 'mobx-react-lite';
+import React from "react";
+import { observer } from "mobx-react-lite";
 
-import { Button, Position, Menu, MenuItem, Popover } from '@blueprintjs/core';
-import { useProject } from '../project';
+import { Button, Position, Menu, MenuItem, Popover } from "@blueprintjs/core";
+import { useProject } from "../project";
 
 export const UserMenu = observer(({ store }) => {
   const project = useProject();
@@ -18,9 +18,9 @@ export const UserMenu = observer(({ store }) => {
     <>
       <Popover
         content={
-          <Menu style={{ width: '80px !important' }}>
+          <Menu style={{ width: "80px !important" }}>
             {project.cloudEnabled && (
-              <div style={{ padding: '5px' }}>Logged as {user?.username}</div>
+              <div style={{ padding: "5px" }}>Logged as {user?.username}</div>
             )}
             {!project.cloudEnabled && (
               <MenuItem
@@ -57,7 +57,7 @@ export const UserMenu = observer(({ store }) => {
         <Button
           icon="user"
           minimal
-          intent={project.cloudEnabled ? 'none' : 'warning'}
+          intent={project.cloudEnabled ? "none" : "warning"}
         ></Button>
       </Popover>
     </>

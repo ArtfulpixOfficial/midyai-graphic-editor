@@ -1,34 +1,34 @@
-import React from 'react';
-import { observer } from 'mobx-react-lite';
-import { Spinner } from '@blueprintjs/core';
+import React from "react";
+import { observer } from "mobx-react-lite";
+import { Spinner } from "@blueprintjs/core";
 
-import { PolotnoContainer, SidePanelWrap, WorkspaceWrap } from 'polotno';
-import { Toolbar } from 'polotno/toolbar/toolbar';
-import { ZoomButtons } from 'polotno/toolbar/zoom-buttons';
-import { SidePanel, DEFAULT_SECTIONS } from 'polotno/side-panel';
-import { Workspace } from 'polotno/canvas/workspace';
-import { PagesTimeline } from 'polotno/pages-timeline';
-import { setTranslations } from 'polotno/config';
+import { PolotnoContainer, SidePanelWrap, WorkspaceWrap } from "polotno";
+import { Toolbar } from "polotno/toolbar/toolbar";
+import { ZoomButtons } from "polotno/toolbar/zoom-buttons";
+import { SidePanel, DEFAULT_SECTIONS } from "polotno/side-panel";
+import { Workspace } from "polotno/canvas/workspace";
+import { PagesTimeline } from "polotno/pages-timeline";
+import { setTranslations } from "polotno/config";
 
-import { loadFile } from './file';
+import { loadFile } from "./file";
 
-import { QrSection } from './sections/qr-section';
-import { QuotesSection } from './sections/quotes-section';
-import { IconsSection } from './sections/icons-section';
-import { ShapesSection } from './sections/shapes-section';
-import { StableDiffusionSection } from './sections/stable-diffusion-section';
-import { MyDesignsSection } from './sections/my-designs-section';
+import { QrSection } from "./sections/qr-section";
+import { QuotesSection } from "./sections/quotes-section";
+import { IconsSection } from "./sections/icons-section";
+import { ShapesSection } from "./sections/shapes-section";
+import { StableDiffusionSection } from "./sections/stable-diffusion-section";
+import { MyDesignsSection } from "./sections/my-designs-section";
 
-import { useProject } from './project';
+import { useProject } from "./project";
 
-import fr from './translations/fr';
-import en from './translations/en';
-import id from './translations/id';
-import ru from './translations/ru';
-import ptBr from './translations/pt-br';
-import zhCh from './translations/zh-ch';
+import fr from "./translations/fr";
+import en from "./translations/en";
+import id from "./translations/id";
+import ru from "./translations/ru";
+import ptBr from "./translations/pt-br";
+import zhCh from "./translations/zh-ch";
 
-import Topbar from './topbar/topbar';
+import Topbar from "./topbar/topbar";
 
 // load default translations
 setTranslations(en);
@@ -40,14 +40,15 @@ DEFAULT_SECTIONS.splice(3, 0, IconsSection);
 // add two more sections
 DEFAULT_SECTIONS.push(QuotesSection, QrSection);
 // DEFAULT_SECTIONS.unshift(UploadSection);
-DEFAULT_SECTIONS.unshift(MyDesignsSection);
+// DEFAULT_SECTIONS.unshift(MyDesignsSection);
 
-DEFAULT_SECTIONS.push(StableDiffusionSection);
+// DEFAULT_SECTIONS.push(StableDiffusionSection);
 // DEFAULT_SECTIONS.push(VideosSection);
 
+console.log(DEFAULT_SECTIONS);
 const isStandalone = () => {
   return (
-    window.matchMedia('(display-mode: standalone)').matches ||
+    window.matchMedia("(display-mode: standalone)").matches ||
     window.navigator.standalone
   );
 };
@@ -59,7 +60,7 @@ const getOffsetHeight = () => {
     // Try to get the safe area inset using env() variables
     const safeAreaInsetBottomString = getComputedStyle(
       document.documentElement
-    ).getPropertyValue('env(safe-area-inset-bottom)');
+    ).getPropertyValue("env(safe-area-inset-bottom)");
     if (safeAreaInsetBottomString) {
       safeAreaInsetBottom = parseFloat(safeAreaInsetBottomString);
     }
@@ -81,7 +82,7 @@ const getOffsetHeight = () => {
 const useHeight = () => {
   const [height, setHeight] = React.useState(getOffsetHeight());
   React.useEffect(() => {
-    window.addEventListener('resize', () => {
+    window.addEventListener("resize", () => {
       setHeight(getOffsetHeight());
     });
   }, []);
@@ -93,15 +94,15 @@ const App = observer(({ store }) => {
   const height = useHeight();
 
   React.useEffect(() => {
-    if (project.language.startsWith('fr')) {
+    if (project.language.startsWith("fr")) {
       setTranslations(fr, { validate: true });
-    } else if (project.language.startsWith('id')) {
+    } else if (project.language.startsWith("id")) {
       setTranslations(id, { validate: true });
-    } else if (project.language.startsWith('ru')) {
+    } else if (project.language.startsWith("ru")) {
       setTranslations(ru, { validate: true });
-    } else if (project.language.startsWith('pt')) {
+    } else if (project.language.startsWith("pt")) {
       setTranslations(ptBr, { validate: true });
-    } else if (project.language.startsWith('zh')) {
+    } else if (project.language.startsWith("zh")) {
       setTranslations(zhCh, { validate: true });
     } else {
       setTranslations(en, { validate: true });
@@ -130,15 +131,15 @@ const App = observer(({ store }) => {
   return (
     <div
       style={{
-        width: '100vw',
-        height: height + 'px',
-        display: 'flex',
-        flexDirection: 'column',
+        width: "100vw",
+        height: height + "px",
+        display: "flex",
+        flexDirection: "column",
       }}
       onDrop={handleDrop}
     >
       <Topbar store={store} />
-      <div style={{ height: 'calc(100% - 50px)' }}>
+      <div style={{ height: "calc(100% - 50px)" }}>
         <PolotnoContainer className="polotno-app-container">
           <SidePanelWrap>
             <SidePanel store={store} sections={DEFAULT_SECTIONS} />
@@ -151,25 +152,25 @@ const App = observer(({ store }) => {
           </WorkspaceWrap>
         </PolotnoContainer>
       </div>
-      {project.status === 'loading' && (
+      {project.status === "loading" && (
         <div
           style={{
-            position: 'absolute',
+            position: "absolute",
             top: 0,
             left: 0,
-            width: '100vw',
-            height: '100vh',
-            backgroundColor: 'rgba(0,0,0,0.5)',
+            width: "100vw",
+            height: "100vh",
+            backgroundColor: "rgba(0,0,0,0.5)",
             zIndex: 1000,
           }}
         >
           <div
             style={{
-              position: 'absolute',
-              top: '50%',
-              left: '50%',
-              transform: 'translate(-50%, -50%)',
-              color: 'white',
+              position: "absolute",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+              color: "white",
             }}
           >
             <Spinner />
