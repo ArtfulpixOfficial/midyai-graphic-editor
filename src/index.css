@@ -3,9 +3,9 @@
   background-color: #0e0c15;
 }
 
-.polotno-side-tabs-container::-webkit-scrollbar {
+/* .polotno-side-tabs-container::-webkit-scrollbar {
   display: none;
-}
+} */
 
 /* .polotno-page-container::after {
   content: " ";
