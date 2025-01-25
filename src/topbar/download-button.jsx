@@ -68,7 +68,14 @@ export const DownloadButton = observer(({ store }) => {
     });
     const allWords = texts.join(" ").split(" ");
     const words = allWords.slice(0, 6);
-    return words.join(" ").replace(/\s/g, "-").toLowerCase() || "polotno";
+    // const projectName = await window.project.name;
+    console.log(typeof projectName);
+    console.log(window.project.getName);
+    return (
+      window.project.name ||
+      words.join(" ").replace(/\s/g, "-").toLowerCase() ||
+      "polotno"
+    );
   };
 
   const maxQuality = type === "mp4" ? 1 : 300 / 72;
@@ -195,12 +202,12 @@ export const DownloadButton = observer(({ store }) => {
           )}
           {type === "mp4" && (
             <>
-              <div style={{ padding: "10px", maxWidth: "180px", opacity: 0.8 }}>
+              {/* <div style={{ padding: "10px", maxWidth: "180px", opacity: 0.8 }}>
                 <strong>Beta feature.</strong>{" "}
                 <a href="mailto:anton@polotno.com">
                   Let us know what you think!
                 </a>
-              </div>
+              </div> */}
               {saving && (
                 <div
                   style={{ padding: "10px", maxWidth: "180px", opacity: 0.8 }}
